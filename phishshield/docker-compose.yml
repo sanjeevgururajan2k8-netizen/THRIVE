@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - DATABASE_URL=sqlite:///./phishshield.db
+      - THREAT_INTEL_API_KEY=mock_key
+      - STORE_RAW_EMAIL=false
+      - RETENTION_DAYS=90
+      - CAMPAIGN_THRESHOLD=70
+      - CAMPAIGN_DNA_THRESHOLD=80
+      - MIN_CAMPAIGN_SIZE=3
+    restart: unless-stopped

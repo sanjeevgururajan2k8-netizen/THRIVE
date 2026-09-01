@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+pydantic
+sqlalchemy
+pydantic-settings
+email-validator
+tldextract
+beautifulsoup4
+rapidfuzz
+python-multipart
+pytest
+httpx
