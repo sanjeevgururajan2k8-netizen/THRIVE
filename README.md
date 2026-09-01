@@ -1,16 +1,51 @@
-# React + Vite
+# PhishShield Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+This project is a React + Vite SOC dashboard for a phishing investigation workflow. It currently operates as a frontend-only prototype with mocked API responses, which matches the project’s existing architecture.
 
-Currently, two official plugins are available:
+## Email Investigation Module
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The email investigation workflow implements a lightweight parser that accepts raw email text or `.eml` content, extracts structural indicators, and surfaces the data through a mock API layer for the SOC dashboard.
 
-## React Compiler
+### Supported inputs
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Raw email text
+- `.eml` content
+- Plain-text and multipart messages
 
-## Expanding the Oxlint configuration
+### Extracted fields
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- Message metadata: subject, sender, recipients, reply-to, return path, date, message ID
+- Sender and domain analysis
+- URL and domain extraction
+- Attachment metadata and hash placeholders
+- Structural indicators such as reply-to mismatches, visible destination mismatches, and suspicious executable attachments
+- HTML sanitization for safe preview rendering
+
+### API contract used by the frontend
+
+- `api.analyzeEmail(rawEmailText, fileName)`
+- `api.getEmailInvestigation()`
+
+### Data flow
+
+1. Upload or sample email text
+2. Parse the raw content
+3. Build a structured object representing metadata, sender, body, URLs, attachments, and indicators
+4. Surface the analysis in the Email Investigation page
+5. Prepare the object for downstream AI/risk/threat-intel consumers
+
+### Security notes
+
+- Uploaded content is treated as untrusted input.
+- HTML is sanitized before preview rendering.
+- No attachment is executed or downloaded.
+- URLs are parsed statically without making outbound requests.
+
+### How to run
+
+```bash
+npm install
+npm run dev
+```
+
+Then open the app and navigate to the Email Investigation page from the sidebar.

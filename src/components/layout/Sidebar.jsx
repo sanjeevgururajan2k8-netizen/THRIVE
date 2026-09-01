@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Shield, LayoutDashboard, AlertOctagon, Target, Activity, Users, FileText, Settings, LogOut } from 'lucide-react';
+import { Shield, LayoutDashboard, AlertOctagon, Target, Activity, Users, FileText, Mail, Settings, LogOut } from 'lucide-react';
 import { cn } from '../common/Badges';
 
 const navItems = [
   { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
+  { name: 'Email Investigation', path: '/email-investigation', icon: Mail },
   { name: 'SOC Overview', path: '/soc', icon: Activity },
   { name: 'Incidents', path: '/incidents', icon: AlertOctagon },
   { name: 'Campaigns', path: '/campaigns', icon: Target },

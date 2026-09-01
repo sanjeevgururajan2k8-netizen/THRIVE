@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { mockStats, mockIncidents, mockCampaigns, mockIOCs, mockUsers, mockReports } from '../data/mockData';
+import { parseEmailText, getMockEmailAnalysis } from './emailParser';
 
 const MOCK_DELAY = 500;
 const USE_MOCK = true; // Toggle to false to use real API
@@ -101,6 +102,22 @@ export const api = {
       return { data: mockReports.find((rep) => rep.id === id) };
     }
     return apiClient.get(`/reports/${id}`);
+  },
+
+  // Email investigation
+  analyzeEmail: async (rawEmailText, fileName = 'email.eml') => {
+    if (USE_MOCK) {
+      await delay(MOCK_DELAY);
+      return { data: parseEmailText(rawEmailText, fileName) };
+    }
+    return apiClient.post('/emails/analyze', { rawEmailText, fileName });
+  },
+  getEmailInvestigation: async () => {
+    if (USE_MOCK) {
+      await delay(MOCK_DELAY);
+      return { data: getMockEmailAnalysis() };
+    }
+    return apiClient.get('/emails/investigation');
   },
 
   // Actions

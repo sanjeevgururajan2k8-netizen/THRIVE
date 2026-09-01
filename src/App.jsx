@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AppLayout } from './components/layout/AppLayout';
 import Dashboard from './pages/Dashboard';
 import Incidents from './pages/Incidents';
+import EmailInvestigation from './pages/EmailInvestigation';
 
 // Temporary placeholders for missing pages
 const Placeholder = ({ title }) => (
@@ -44,6 +45,7 @@ export default function App() {
         <Route element={<AppLayout />}>
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/email-investigation" element={<EmailInvestigation />} />
           <Route path="/soc" element={<Placeholder title="SOC Overview" />} />
           <Route path="/incidents" element={<Incidents />} />
           <Route path="/incidents/:id" element={<Placeholder title="Incident Details" />} />
